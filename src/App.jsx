@@ -29,7 +29,10 @@ const App = () => {
   }, [length, isNumberAllowed, isCharAllowed, passwordGenerator]);
 
   return (
-    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-2 m-8 text-orange-500 bg-blue-300">
+    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-2 m-8 bg-purple-400">
+      <h1 className="text-center py-3 text-lg font-semibold italic">
+        Password Generator
+      </h1>
       <div className="shadow flex rounded-lg overflow-hidden mb-4">
         <input
           type="text"
@@ -58,7 +61,7 @@ const App = () => {
               setLength(e.target.value);
             }}
           />
-          <label>Length: {length}</label>
+          <label className="font-semibold">Length: {length}</label>
         </div>
         <div className="items-center flex gap-x-1">
           <input
@@ -69,7 +72,9 @@ const App = () => {
               setIsNumberAllowed((prev) => !prev);
             }}
           />
-          <label htmlFor="numberInput">Numbers</label>
+          <label htmlFor="numberInput" className="font-semibold">
+            Numbers
+          </label>
         </div>
         <div className="items-center flex gap-x-1">
           <input
@@ -80,7 +85,9 @@ const App = () => {
               setIsCharAllowed((prev) => !prev);
             }}
           />
-          <label htmlFor="charInput">Characters</label>
+          <label htmlFor="charInput" className="font-semibold">
+            Characters
+          </label>
         </div>
       </div>
     </div>
