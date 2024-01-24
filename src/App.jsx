@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const App = () => {
   const [length, setLength] = useState(8);
   const [isNumberAllowed, setIsNumberAllowed] = useState(false);
   const [isCharAllowed, setIsCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
+  const passwordRef = useRef(null);
   const passwordGenerator = useCallback(() => {
     let password = "";
     let string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -17,6 +18,12 @@ const App = () => {
     setPassword(password);
   }, [length, isNumberAllowed, isCharAllowed, setPassword]);
 
+  const copyPasswordToClipBoard = useCallback(() => {
+    passwordRef.current?.select();
+    passwordRef.current?.setSelectionRange(0, 49);
+    window.navigator.clipboard.writeText(password);
+  }, [password]);
+
   useEffect(() => {
     passwordGenerator();
   }, [length, isNumberAllowed, isCharAllowed, passwordGenerator]);
@@ -26,13 +33,16 @@ const App = () => {
       <div className="shadow flex rounded-lg overflow-hidden mb-4">
         <input
           type="text"
-          onChange={() => setPassword()}
+          ref={passwordRef}
           value={password}
           placeholder="Password"
           readOnly
           className="w-full outline-none px-3 py-1"
         />
-        <button className="capitalize bg-orange-400 text-white outline-none px-2 py-1">
+        <button
+          onClick={copyPasswordToClipBoard}
+          className="capitalize bg-orange-400 text-white outline-none px-2 py-1"
+        >
           copy
         </button>
       </div>
